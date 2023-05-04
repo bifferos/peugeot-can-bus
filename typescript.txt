@@ -1,0 +1,653 @@
+;
+; NB:  The following file is a typescript from a minicom session connected to the receiver arduino-CAN shield pair.  I've cleaned it up a bit
+;
+
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFFFFFF 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x165 and length 4
+0 FFFFFFC0 0 0 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0x361 and length 6
+1 0 2 60 10 0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0x221 and length 7
+0 FFFFFFFF FFFFFFFF 3 FFFFFFFC FFFFFFFF FFFFFFFF 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x18 and length 5
+FFFFFF80 0 2 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x168 and length 8
+0 0 0 2 4 0 0 0 
+
+Received packet with id 0x1A8 and length 8
+2 FFFFFFFF FFFFFFFF 0 0 E FFFFFFCA FFFFFFB3 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x18 and length 5
+FFFFFF80 0 2 0 0 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x1A8 and length 8
+2 FFFFFFFF FFFFFFFF 0 0 E FFFFFFCA FFFFFFB3 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0xF6 and length 8
+FFFFFF88 39 A 52 FFFFFFFA 6E 6E 10 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x168 and length 8
+0 0 0 2 4 0 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x2B6 and length 8
+44 4A 38 34 32 31 34 32 
+
+Received packet with id 0x15B and length 8
+1 3 FFFFFF92 FFFFFF80 0 FFFFFFD0 0 FFFFFFF0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x168 and length 8
+0 0 0 2 4 0 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x1A1 and length 8
+7F FFFFFFFF 0 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x168 and length 8
+0 0 0 2 4 0 0 0 
+
+Received packet with id 0x165 and length 4
+0 FFFFFFC0 0 0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x1A1 and length 8
+7F FFFFFFFF 0 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x1A8 and length 8
+2 FFFFFFFF FFFFFFFF 0 0 E FFFFFFCA FFFFFFB3 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x15B and length 8
+1 3 FFFFFF92 FFFFFF80 0 FFFFFFD0 0 FFFFFFF0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x1A1 and length 8
+7F FFFFFFFF 0 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x220 and length 2
+0 0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0x1A1 and length 8
+7F FFFFFFFF 0 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x131 and length 6
+1 10 0 0 0 20 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x15B and length 8
+1 3 FFFFFF92 FFFFFF80 0 FFFFFFD0 0 FFFFFFF0 
+
+Received packet with id 0x18 and length 5
+FFFFFF80 0 2 0 0 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x1A8 and length 8
+2 FFFFFFFF FFFFFFFF 0 0 E FFFFFFCA FFFFFFB3 
+
+Received packet with id 0x3B6 and length 6
+37 53 39 48 50 30 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0x1A1 and length 8
+7F FFFFFFFF 0 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x165 and length 4
+0 FFFFFFC0 0 0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x18 and length 5
+FFFFFF80 0 2 0 0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x1A1 and length 8
+7F FFFFFFFF 0 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x1A8 and length 8
+2 FFFFFFFF FFFFFFFF 0 0 E FFFFFFCA FFFFFFB3 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0xF6 and length 8
+FFFFFF88 39 A 52 FFFFFFFA 6E 6E 10 
+
+Received packet with id 0x51F and length 8
+5 0 0 0 0 0 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x168 and length 8
+0 0 0 2 4 0 0 0 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x18 and length 5
+FFFFFF80 0 2 0 0 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x15B and length 8
+1 3 FFFFFF92 FFFFFF80 0 FFFFFFD0 0 FFFFFFF0 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0x1A8 and length 8
+2 FFFFFFFF FFFFFFFF 0 0 E FFFFFFCA FFFFFFB3 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0x18 and length 5
+FFFFFF80 0 2 0 0 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0x1A1 and length 8
+7F FFFFFFFF 0 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0x3B6 and length 6
+37 53 39 48 50 30 
+
+Received packet with id 0x15B and length 8
+1 3 FFFFFF92 FFFFFF80 0 FFFFFFD0 0 FFFFFFF0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x2A5 and length 8
+0 0 0 0 0 0 0 0 
+
+Received packet with id 0x51F and length 8
+5 0 0 0 0 0 0 0 
+
+Received packet with id 0x131 and length 6
+1 10 0 0 0 20 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x168 and length 8
+0 0 0 2 4 0 0 0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x1A1 and length 8
+7F FFFFFFFF 0 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x168 and length 8
+0 0 0 2 4 0 0 0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0x18 and length 5
+FFFFFF80 0 2 0 0 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0x18 and length 5
+FFFFFF80 0 2 0 0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x3F6 and length 7
+9 1B FFFFFF80 FFFFFF9F 9 FFFFFF87 1 
+
+Received packet with id 0x15B and length 8
+1 3 FFFFFF92 FFFFFF80 0 FFFFFFD0 0 FFFFFFF0 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0x18 and length 5
+FFFFFF80 0 2 0 0 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x2A5 and length 8
+0 0 0 0 0 0 0 0 
+
+Received packet with id 0x221 and length 7
+0 FFFFFFFF FFFFFFFF 3 FFFFFFFC FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x2E5 and length 4
+0 0 0 0 
+
+Received packet with id 0x325 and length 3
+0 0 0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0x161 and length 7
+0 0 38 5C 0 0 69 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x168 and length 8
+0 0 0 2 4 0 0 0 
+
+Received packet with id 0x317 and length 8
+FFFFFFF7 FFFFFF9D FFFFFF82 FFFFFFDC FFFFFFD8 20 FFFFFF80 2 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x18 and length 5
+FFFFFF80 0 2 0 0 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0x21F and length 3
+0 0 0 
+
+Received packet with id 0x265 and length 4
+FFFFFF80 0 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0x18 and length 5
+FFFFFF80 0 2 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x168 and length 8
+0 0 0 2 4 0 0 0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x227 and length 5
+0 0 10 0 0 
+
+Received packet with id 0x217 and length 8
+FFFFFFF2 FFFFFF81 0 0 FFFFFF80 FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x1A1 and length 8
+7F FFFFFFFF 0 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0x3F6 and length 7
+9 1B FFFFFFC0 FFFFFF9F 9 FFFFFF87 1 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 65 0 
+
+Received packet with id 0x227 and length 5
+0 0 10 0 0 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 64 0 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x165 and length 4
+0 FFFFFFC0 0 0 
+
+Received packet with id 0xDF and length 3
+4 0 40 
+
+Received packet with id 0x265 and length 4
+FFFFFF80 0 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0xE6 and length 7
+10 0 0 0 0 65 0 
+
+Received packet with id 0x128 and length 8
+61 0 0 0 0 FFFFFF80 FFFFFFB0 1 
+
+Received packet with id 0x3E1 and length 4
+0 0 0 FFFFFF80 
+
+Received packet with id 0x167 and length 8
+0 6 FFFFFFFF FFFFFFFF 7F FFFFFFFF 0 0 
+
+Received packet with id 0xB6 and length 8
+0 0 0 0 0 0 0 FFFFFFD0 
+
+Received packet with id 0x1A1 and length 8
+7F FFFFFFFF 0 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF 
+
+Received packet with id 0x36 and length 8
+E 0 FFFFFF86 F 1 FFFFFF80 0 FFFFFFA0 
+
