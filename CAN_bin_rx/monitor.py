@@ -40,8 +40,12 @@ class PortReader:
 
     def worker(self):
         while True:
-            line = self.port.readline().decode().strip()
-            parts = line.split(" ")
+            data = self.port.readline()
+            try:
+                line = data.decode()
+            except UnicodeDecodeError:
+                continue
+            parts = line.strip().split(" ")
             if self.verify(parts):
                 if not self.has_value(parts):
                     self.queue.put(parts)
