@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
-import sys
 import serial
-from PySide6.QtWidgets import QApplication, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
-from PySide6.QtCore import QTimer, Qt
+import urwid
 import threading
 from queue import Queue
 
@@ -52,63 +50,51 @@ class PortReader:
                     self.current_state[parts[0]] = parts
 
 
-class Monitor(QWidget):
-    def __init__(self, reader):
-        super().__init__()
-        self.reader = reader
-        self.id_dict = {}
-        self.table = None
-        self.init_ui()
-        self.id_dict.clear()
-
-    def init_ui(self):
-        self.table = QTableWidget()
-        self.table.setColumnCount(2)
-        self.table.setHorizontalHeaderLabels(['ID', 'Data'])
-        self.table.verticalHeader().setVisible(False)
-        layout = QVBoxLayout(self)
-        layout.addWidget(self.table)
-        self.setLayout(layout)
-        self.setWindowTitle('CAN-BUS inspection tool')
-
-    def process_serial_data(self):
-        changed = False
-        while not self.reader.queue.empty():
-            changed = True
-            fields = self.reader.queue.get()
-            id = fields[0]
-            data = ' '.join(fields[2:])
-            if id in self.id_dict:
-                row = self.id_dict[id]
-                self.table.setItem(row, 1, QTableWidgetItem(data))
-            else:
-                row = self.table.rowCount()
-                self.table.setRowCount(row + 1)
-                self.table.setItem(row, 0, QTableWidgetItem(id))
-                self.table.setItem(row, 1, QTableWidgetItem(data))
-                self.id_dict[id] = row
-        if changed:
-            self.table.sortItems(0, order=Qt.AscendingOrder)
+# Dict with the visible mappings
+VISIBLE_DATA = {
+}
 
 
-if __name__ == '__main__':
-    # Open serial port
+def render():
+    """Return a text render of the visible data dict"""
+    keys = list(VISIBLE_DATA.keys())
+    keys.sort()
+    lines = []
+    for key in keys:
+        data = "".join([f" {_:>2}" for _ in VISIBLE_DATA[key][2:]])
+        lines.append(f"{key:>4}-{data}")
+    return "\n".join(lines)
+
+
+def show_or_exit(key):
+    if key in ('q', 'Q'):
+        raise urwid.ExitMainLoop()
+
+
+def update_text_from_queue(loop, user_data):
+    text_queue, text_widget = user_data
+    has_update = False
+    while not text_queue.empty():
+        has_update = True
+        data = text_queue.get()
+        VISIBLE_DATA[data[0]] = data
+    if has_update:
+        text_widget.set_text(render())
+    loop.set_alarm_in(0.1, update_text_from_queue, user_data=(text_queue, text_widget))
+
+
+def main():
+
+    txt = urwid.Text("")
+
     reader = PortReader('/dev/ttyACM0')
 
-    # Initialize Qt application
-    app = QApplication(sys.argv)
+    fill = urwid.Filler(txt, 'top')
+    loop = urwid.MainLoop(fill, unhandled_input=show_or_exit)
+    update_text_from_queue(loop, (reader.queue, txt))
+    loop.set_alarm_in(0.1, update_text_from_queue, user_data=(reader.queue, txt))
+    loop.run()
 
-    # Initialize serial port reader
-    reader = Monitor(reader)
 
-    # Set up timer to read from queue every 100 ms
-    timer = QTimer()
-    timer.timeout.connect(reader.process_serial_data)
-    timer.start(100)
-
-    # Show window
-    reader.show()
-
-    # Run Qt event loop
-    sys.exit(app.exec())
-
+if __name__ == "__main__":
+    main()
