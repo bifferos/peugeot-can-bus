@@ -4,13 +4,56 @@ import sys
 import serial
 from PySide6.QtWidgets import QApplication, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
 from PySide6.QtCore import QTimer, Qt
+import threading
+from queue import Queue
 
 
-class SerialPortReader(QWidget):
-    def __init__(self, port):
+class PortReader:
+    def __init__(self, device_name):
+        self.port = serial.Serial(device_name)
+        self.queue = Queue()
+        # Mapping between
+        self.current_state = {}
+        self.worker_thread = threading.Thread(target=self.worker)
+        self.worker_thread.daemon = True
+        self.worker_thread.start()
+
+    @staticmethod
+    def verify(parts):
+        """Verify the received newline-terminated packet"""
+        if len(parts) < 3:
+            return False
+        try:
+            remain = int(parts[1])
+            if remain != len(parts[2:]):
+                return False
+        except ValueError:
+            return False
+        return True
+
+    def has_value(self, parts):
+        """Check if the state is unchanged"""
+        if parts[0] in self.current_state:
+            if self.current_state[parts[0]] == parts:
+                return True
+        return False
+
+    def worker(self):
+        while True:
+            line = self.port.readline().decode().strip()
+            parts = line.split(" ")
+            if self.verify(parts):
+                if not self.has_value(parts):
+                    self.queue.put(parts)
+                    self.current_state[parts[0]] = parts
+
+
+class Monitor(QWidget):
+    def __init__(self, reader):
         super().__init__()
-        self.port = port
+        self.reader = reader
         self.id_dict = {}
+        self.table = None
         self.init_ui()
         self.id_dict.clear()
 
@@ -25,9 +68,8 @@ class SerialPortReader(QWidget):
         self.setWindowTitle('CAN-BUS inspection tool')
 
     def process_serial_data(self):
-        line = self.port.readline().decode().strip()
-        fields = line.split(' ')
-        if len(fields) > 0:
+        while not self.reader.queue.empty():
+            fields = self.reader.queue.get()
             id = fields[0]
             data = ' '.join(fields[2:])
             if id in self.id_dict:
@@ -44,25 +86,22 @@ class SerialPortReader(QWidget):
 
 if __name__ == '__main__':
     # Open serial port
-    ser = serial.Serial('/dev/ttyACM0')
+    reader = PortReader('/dev/ttyACM0')
 
     # Initialize Qt application
     app = QApplication(sys.argv)
 
     # Initialize serial port reader
-    reader = SerialPortReader(ser)
+    reader = Monitor(reader)
 
-    # Set up timer to read from serial port every 10 ms
+    # Set up timer to read from queue every 100 ms
     timer = QTimer()
     timer.timeout.connect(reader.process_serial_data)
-    timer.start(500)
+    timer.start(100)
 
     # Show window
     reader.show()
 
     # Run Qt event loop
     sys.exit(app.exec())
-
-    # Close serial port
-    ser.close()
 
