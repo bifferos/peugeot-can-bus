@@ -68,7 +68,9 @@ class Monitor(QWidget):
         self.setWindowTitle('CAN-BUS inspection tool')
 
     def process_serial_data(self):
+        changed = False
         while not self.reader.queue.empty():
+            changed = True
             fields = self.reader.queue.get()
             id = fields[0]
             data = ' '.join(fields[2:])
@@ -81,7 +83,8 @@ class Monitor(QWidget):
                 self.table.setItem(row, 0, QTableWidgetItem(id))
                 self.table.setItem(row, 1, QTableWidgetItem(data))
                 self.id_dict[id] = row
-                self.table.sortItems(0, order=Qt.AscendingOrder)
+        if changed:
+            self.table.sortItems(0, order=Qt.AscendingOrder)
 
 
 if __name__ == '__main__':
