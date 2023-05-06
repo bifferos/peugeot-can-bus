@@ -4,6 +4,7 @@ import serial
 import urwid
 import threading
 from queue import Queue
+import time
 
 
 class PortReader:
@@ -11,7 +12,7 @@ class PortReader:
         self.port = serial.Serial(device_name)
         self.queue = Queue()
         # Mapping between
-        self.current_state = {}
+        self.cache_state = {}
         self.worker_thread = threading.Thread(target=self.worker)
         self.worker_thread.daemon = True
         self.worker_thread.start()
@@ -29,12 +30,22 @@ class PortReader:
             return False
         return True
 
-    def has_value(self, parts):
-        """Check if the state is unchanged"""
-        if parts[0] in self.current_state:
-            if self.current_state[parts[0]] == parts:
-                return True
-        return False
+    def diff_with_last(self, parts):
+        """Check if the state is unchanged, return array showing the locations of differences."""
+        if parts[0] in self.cache_state:
+            cache_value = self.cache_state[parts[0]]
+            if cache_value == parts:
+                # No difference
+                return None
+            if len(cache_value) != len(parts):
+                # We don't expect the length to change for the same code, but if it doesn, it's all different
+                return [True for _ in parts]
+            else:
+                # Check the individual fields for a change
+                return [cache != current for cache, current in zip(cache_value, parts)]
+        else:
+            # All different
+            return [True for _ in parts]
 
     def worker(self):
         while True:
@@ -45,9 +56,11 @@ class PortReader:
                 continue
             parts = line.strip().split(" ")
             if self.verify(parts):
-                if not self.has_value(parts):
-                    self.queue.put(parts)
-                    self.current_state[parts[0]] = parts
+                diff_spec = self.diff_with_last(parts)
+                if diff_spec is None:
+                    continue
+                self.queue.put((parts, diff_spec))
+                self.cache_state[parts[0]] = parts
 
 
 # Dict with the visible mappings
@@ -59,11 +72,22 @@ def render():
     """Return a text render of the visible data dict"""
     keys = list(VISIBLE_DATA.keys())
     keys.sort()
-    lines = []
+    text_elements = []
     for key in keys:
-        data = "".join([f" {_:>2}" for _ in VISIBLE_DATA[key][2:]])
-        lines.append(f"{key:>4}-{data}")
-    return "\n".join(lines)
+        data, diff_spec, time_written = VISIBLE_DATA[key]
+        now = time.time()
+        text_elements.append(f"{key:>4}")
+        for value, changed in zip(data[2:], diff_spec[2:]):
+            if now > (time_written + 2):
+                changed = False
+            text_elements.append(" ")
+            if changed:
+                text_elements.append(("red", f"{value:>2}"))
+            else:
+                text_elements.append(("default", f"{value:>2}"))
+
+        text_elements.append("\n")
+    return text_elements
 
 
 def show_or_exit(key):
@@ -76,8 +100,8 @@ def update_text_from_queue(loop, user_data):
     has_update = False
     while not text_queue.empty():
         has_update = True
-        data = text_queue.get()
-        VISIBLE_DATA[data[0]] = data
+        data, diff_spec = text_queue.get()
+        VISIBLE_DATA[data[0]] = (data, diff_spec, time.time())
     if has_update:
         text_widget.set_text(render())
     loop.set_alarm_in(0.1, update_text_from_queue, user_data=(text_queue, text_widget))
@@ -85,13 +109,22 @@ def update_text_from_queue(loop, user_data):
 
 def main():
 
+    palette = {
+        # name, foreground, background?
+        ('default', 'default', ''),
+        ('red', 'black', 'light red'),
+    }
+
     txt = urwid.Text("")
 
     reader = PortReader('/dev/ttyACM0')
 
     fill = urwid.Filler(txt, 'top')
-    loop = urwid.MainLoop(fill, unhandled_input=show_or_exit)
+
+    loop = urwid.MainLoop(fill, palette=palette, unhandled_input=show_or_exit)
+
     update_text_from_queue(loop, (reader.queue, txt))
+
     loop.set_alarm_in(0.1, update_text_from_queue, user_data=(reader.queue, txt))
     loop.run()
 
