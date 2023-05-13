@@ -1,7 +1,15 @@
 # peugeot-can-bus
 Investigation of peugeot can-bus
 
-At the rear of the Peugeot Partner, behind the left-hand boot panel just above and the rear of the wheel arch can be found a small 10-way 0.1 inch pitch 2x9 connector.
+At the rear of the Peugeot Partner, behind the left-hand boot panel just above and the rear of the wheel arch can be found a small 18-way 0.1 inch pitch 2x9 connector.
+
+![Connector1](canbus_connector1.png)
+
+Remove the outer shell to reveal
+
+![Connector2](canbus_connector2.png)
+
+
 Viewing the female connector from the underside:
 
 ```
@@ -20,6 +28,8 @@ The connector has numbered pins, but they don't correspond to normal IDC pin num
 With the key out of the ignition, the red cable on pin 14 carries approx 11.6 volts.
 Once the key is in the ignition and turned (without starting) red switches to around 4.6v
 It's at this point that the CAN-BUS signal gets activated.
+
+![scope](canbus_scope.png)
 
 CAN is carried on Red and Yellow cables.   The Red is normally high, the yellow is normally low when not transmitting.
 
