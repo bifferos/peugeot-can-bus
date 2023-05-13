@@ -78,9 +78,11 @@ In order to understand if we started rx mid-frame, the end-of-frame marker must 
 preceding data.  Since that number of bytes will never be greater than 15 it can be encoded in 4 bits.  So for the end-of-frame marker we
 have:
 
+```
 BIT7: Sync bit, if set high this is EOF.
 BIT6: MSB for the byte carrying all the 'bit7s' of the data bytes.
 BIT3-0: Total count of preceding bytes so we know if we have complete frame.
+```
 
 BUT... what about extended IDs.  These can be 29 bits.  I don't really have any knowledge of how they are typically used, so I'm not going to
 optimise at all.  The bottom 13 bits get sent in the lower 7 bits of the first two transmitted bytes.  Bit6 of the first byte xmitted is
@@ -89,8 +91,10 @@ However we need to know where the ID stops and the data starts.  So this is done
 IDs, where the ID is in two bytes, but can be max of 3.
 
 So the marker makeup is:
+```
 BIT7: Sync bit, if set high this is EOF.
 BIT6: MSB for the byte carrying all the 'bit7s' of the data bytes.
 BIT5-4: Count of 'extra' id bytes.   
 BIT3-0: Total count of preceding bytes so we know if we have complete frame.
+```
 
