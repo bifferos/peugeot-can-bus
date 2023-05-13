@@ -119,6 +119,8 @@ some sort for values that change, so I can easily spot them on the screen.  When
 period of inactivity (i.e. not changing) I want it to change back.  I set that period at 2 seconds.  A bug in the program means that if there
 are no updates to any values, the highlights may not change back, but I can live with that.
 
+![monitor](monitor.png)
+
 The program is in two parts:  The serial listener, which is reading and decoding the CAN packets, and the display element, which receives
 only changed packets from a queue, including a 'diff spec' which indicates the particular fields that have changed.  This means it will 
 give you the specific byte that changed, instead of telling you about the entire message.
