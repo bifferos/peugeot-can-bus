@@ -40,7 +40,10 @@ Having figured out the bus lines, An arduino UNO with older v1.1 shield was used
 default settings of Sandeep Mistry CAN-bus library work out-of-the-box.
 https://github.com/sandeepmistry/arduino-CAN/tree/master/examples
 
-Examples work great to join two shields together and allow communication.
+Examples work great to join two shields together and allow communication.  In this case I'm using a Mega for the tx side.  
+
+![test](canbus_test.png)
+
 
 BUT There's a problem.  To setup CAN-bus monitoring, it's necessary to get all CAN packets to the PC.  CAN-bus signalling for my car is 
 at 125kbps.  Maximum speed of Arduino UNO serial port is realistically 115200.
