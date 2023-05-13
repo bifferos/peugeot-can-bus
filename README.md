@@ -1,5 +1,6 @@
 # peugeot-can-bus
-Investigation of peugeot can-bus
+
+## Investigation
 
 At the rear of the Peugeot Partner, behind the left-hand boot panel just above and the rear of the wheel arch can be found a small 18-way 0.1 inch pitch 2x9 connector.
 
@@ -40,12 +41,14 @@ Having figured out the bus lines, An arduino UNO with older v1.1 shield was used
 default settings of Sandeep Mistry CAN-bus library work out-of-the-box.
 https://github.com/sandeepmistry/arduino-CAN/tree/master/examples
 
-Examples work great to join two shields together and allow communication.  In this case I'm using a Mega for the tx side.  
+Examples work great to join two shields together and allow communication.  In this case I'm using a Mega for the tx side.  There's not much
+point in even twisting the wires for such a short distance.
 
 ![test](canbus_test.png)
 
+## Optimisation
 
-BUT There's a problem.  To setup CAN-bus monitoring, it's necessary to get all CAN packets to the PC.  CAN-bus signalling for my car is 
+BUT There's a problem.  To setup effective CAN-bus monitoring, it's necessary to get all CAN packets to the PC.  CAN-bus signalling for my car is 
 at 125kbps.  Maximum speed of Arduino UNO serial port is realistically 115200.
 Using a line-based serial protocol with hex printed values is nice and easy to decode on the PC side (just seek to newline and decode),
 however it's not fast enough to keep up with the data rate.   115,200 is pretty close to 125kbps.  With protocol overhead it should be
@@ -55,8 +58,7 @@ First tried base64 encoding.  It didn't work.  Could have been the speed of the 
 
 Decided to invent my own encoding, trying to use knowledge of the CAN-bus protocol.
 
-
-Information that needs to be transmitted to the PC:
+### Information that needs to be transmitted to the PC
 
 ID of packet.  This can be 11 bits for standard CAN.  29 bits for extended.
 Data of packet.  This cab be zero to eight bytes.
@@ -67,8 +69,7 @@ By observation 95% of packets have bits higher than 0xff set.  Therefore no poin
 Very few messages have zero bytes sent.  Probably not worth optimising this case.
 Many packets set all 8 bytes.
 
-
-Next question, Synchronisation:
+### How I arrived at the protocol
 
 Need to understand where a packet starts and ends.  It's OK if you only know where it ends, and the ending byte has some kind of checksum.
 Then you just discard the packets with failing checksums until you get sync.
@@ -110,4 +111,36 @@ BIT6: MSB for the byte carrying all the 'bit7s' of the data bytes.
 BIT5-4: Count of 'extra' id bytes.   
 BIT3-0: Total count of preceding bytes so we know if we have complete frame.
 ```
+
+### Implementation
+
+The monitor program is implemented in Python.  The program aims to draw on the screen only values which change.  I wanted a highlight of 
+some sort for values that change, so I can easily spot them on the screen.  When a value changes I want it to change colour, and after some 
+period of inactivity (i.e. not changing) I want it to change back.  I set that period at 2 seconds.  A bug in the program means that if there
+are no updates to any values, the highlights may not change back, but I can live with that.
+
+The program is in two parts:  The serial listener, which is reading and decoding the CAN packets, and the display element, which receives
+only changed packets from a queue, including a 'diff spec' which indicates the particular fields that have changed.  This means it will 
+give you the specific byte that changed, instead of telling you about the entire message.
+
+There is no attempt to decode the values at present.  There is not really any attempt to allow scrolling through the values.  If you can't
+see all of the IDs arriving on your bus you can change the font size.
+
+### Portability
+
+I aim to write portable software.  First version was using Pyside6, however I realised this is not always easy to get working on 
+even Linux, let alone Windows etc....  I subsequently realised this doesn't really need a GUI.  Could be text mode.  So I ported it to 
+Urwid.  This is much more straightforward and since it's console, running it as root in case you're too lazy to setup your udev rules 
+for /dev/ttyACM0 is easier.  In theory this works on Windows but I haven't tried.
+
+### Testing
+
+Nothing much in software engineering works properly unless it's comprehensively tested.  I can't say I've done this, however I have at least tried
+to convince myself that my sketch + Python doesn't lose any packets at the highest rate.  To this end, I've created a transmitter 
+sketch which sends back-to-back packets with different IDs.  It goes through the range 0-0x7ff, the maximum standard ID size, and then sends
+one extended ID which is a few short of the maximum.  The aim here is just to make sure an extended ID gets picked up.  This sequence is 
+predictable, so a receiver can ensure they have captured all packets.  There is a badly named script 'fast_reading.py' for reading the stream
+of transmitted packets and printing an error if anything is out of sequence, which would indicate a 'dropped' packet.  After a couple of seconds
+stabilising it should stop printing errors.
+
 
