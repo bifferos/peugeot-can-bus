@@ -1,1 +1,1 @@
-Better code producing more compact output machine-readable.
+CAN bus monitoring software for arduino shield.

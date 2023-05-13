@@ -20,51 +20,46 @@ void setup() {
 }
 
 
-static uint8_t shaving_bin1;
-static uint8_t shaving_bin2;
-static uint8_t shaving_count;
+// Total packet count
+static uint8_t sending_count;
+static uint8_t extended_count;
 
 
-void shave_reset()
+// Send the ID in 7-bit packets, ensuring the upper bit is always unset
+// For the largest extended packet this will be 29 bits.  Don't send a 
+// byte consisting of just one bit, we'll stuff that elsewhere.
+// This will mean non-extended IDs take up 2 bytes max
+void send_id(long ident, bool extended)
 {
-  shaving_bin1 = 0;
-  shaving_bin2 = 0;
-  shaving_count = 0;
+  // First byte is always sent.
+  uint8_t extended_indicator = extended ? (1 << 6) : 0;
+  Serial.write((uint8_t)((ident & 0x3f) | extended_indicator));
+  sending_count++;
+  ident >>= 6;
+
+  // 2nd byte is always sent
+  Serial.write((uint8_t)(ident & 0x7f));
+  sending_count++;
+  ident >>= 7;
+
+  // Worst case is three more bytes for the rest of the extended bits.
+  // Total bits: 29.   6 + 7 = 13 bits already sent, 16 remaining
+  while (ident)
+  {
+    Serial.write((uint8_t)(ident & 0x7f));
+    sending_count++;
+    extended_count++;
+    ident >>= 7;
+  }
 }
 
 
-// Feed the data/id bytes in here
-void shave_bit_and_send(uint8_t& value)
+uint8_t send_data(uint8_t value)
 {
-  if (shaving_count < 7)
-  {
-    shaving_bin1 |= (value & (1 << 7)) ? (1 << shaving_count) : 0;
-  }
-  else
-  {
-    shaving_bin2 |= (value & (1 << 7)) ? (1 << (shaving_count - 7)) : 0;
-  }
-
+  uint8_t carry = value & (1 << 7);
   Serial.write(value & ~(1 << 7));
-  shaving_count++;
-}
-
-uint8_t get_id_length(long& id_value)
-{
-  uint8_t *byteArray = (uint8_t *)&id_value;
-  if (byteArray[3])
-  {
-      return 4;
-  }
-  if (byteArray[2])
-  {
-      return 3;
-  }
-  if (byteArray[1])
-  {
-      return 2;
-  }
-  return 1;
+  sending_count++;
+  return carry;
 }
 
 
@@ -76,22 +71,18 @@ void print_warning()
 
 void loop() 
 {
-  uint8_t framing;
-  uint8_t data_size;
-  uint8_t id_size;
-  long data_id;
-  uint8_t data_byte;
-  bool extended;
-
-  shave_reset();
+  sending_count = 0;
+  extended_count = 0;
 
   // try to parse packet
   int packetSize = CAN.parsePacket();
+  long data_id = CAN.packetId();
 
-  if (packetSize) 
+  if (packetSize || data_id != -1) 
   {
-    data_id = CAN.packetId();
+    send_id(data_id, CAN.packetExtended());
 
+    uint8_t carry_byte = 0;
     if (CAN.packetRtr()) 
     {
 
@@ -101,46 +92,24 @@ void loop()
       // Deal with sending the data bytes
       while (CAN.available()) 
       {
-        data_byte = (uint8_t)CAN.read();
-        shave_bit_and_send(data_byte);
+        carry_byte >>= 1;
+        carry_byte |= send_data((uint8_t)CAN.read());
       }
     }
 
-    extended = CAN.packetExtended();
-
-    data_size = shaving_count;
-
-
-    uint8_t *idArray = (uint8_t *)&data_id;
-
-    if (extended)
-    {
-      shave_bit_and_send(idArray[0]);
-      shave_bit_and_send(idArray[1]);
-      shave_bit_and_send(idArray[2]);
-      shave_bit_and_send(idArray[3]);
-      id_size = 3;
-    }
-    else
-    {
-      shave_bit_and_send(idArray[0]);
-      shave_bit_and_send(idArray[1]);
-      id_size = 1;
-    }
-
-    Serial.write(shaving_bin1);
-    Serial.write(shaving_bin2);
-
+    carry_byte = send_data(carry_byte);
+  
     // MS bit (BIT7) set indicates framing byte.  Receiver waits for this to arrive before attempting to decode the prior buffer values.
     // The framing byte contains the length information.  It verifies that a complete frame has been received.  If not it will be discarded
     // and the receiver will wait for a complete frame.
-    framing |= (1 << 7);
-    // BIT6 indicates whether an extended ID is being sent 1=yes, 0=no.
-    framing |= extended ? (1 << 6) : 0;
-    // Regardless of extended or not, a 2-bit field indicates the size of the ID.  This is the length of the ID minus 1.
-    // You can have zero-length data, but you cannot have zero-length ID I believe.
-    framing |= (id_size << 4);
-    framing |= (data_size & 0xf);
+    uint8_t framing = (1 << 7);
+
+    framing |= (carry_byte >> 1);
+
+    framing |= (extended_count << 4);
+
+    // BITS 3,2,1,0 Indicate the number of bytes preceding, for run packet detection.  This can never be more than 15.
+    framing |= (sending_count & 0xf);
 
     Serial.write(framing);
   }
